@@ -1,7 +1,7 @@
 #!usr/bin/python3
 
 # part 1
-with open('testinput.txt') as f:
+with open('input.txt') as f:
     polymers = f.read()
 
 
@@ -25,10 +25,10 @@ print(len(resultingPolymer))
 # part 2
 
 uniquePolymers = set(polymers.lower())
-maxPolymerLength = 0
+minPolymerLength = len(polymers)
 for unit in uniquePolymers:
     polymerLength = len(reactThePolymers(polymers.replace(unit, '').replace(unit.upper(), '')))
-    if polymerLength > maxPolymerLength:
-        maxPolymerLength = polymerLength
+    if polymerLength < minPolymerLength:
+        minPolymerLength = polymerLength
 
-print(maxPolymerLength)
+print(minPolymerLength)
