@@ -1,6 +1,4 @@
-#!/usr/local/bin/python3
-
-with open('testinput.txt') as f:
+with open('./testinput.txt') as f:
     coordinates = f.read().splitlines()
 
 def computeDistance(a,b,c,d):
@@ -24,50 +22,29 @@ for c in coordinates:
 	grid[c[1]][c[0]] = val
 	val += 1
 
-names = [i for i in range(val + 1)]
+names = [i for i in range(val)]
 for row in grid:
 	print(row)
 
-closestPoints = dict.fromkeys(names)
+coordinateIndex = dict(zip(names, coordinates))
+#print(closestPoints)
 
-for point in closestPoints:
-	closestPoints[point] = 0
+closestPoints = dict.fromkeys(names, 0)
+
+def determineClosestPoint(x, y, points):
+    #miValue=  10000
+    #or c in points:
+        
+    return [computeDistance(x, y, c[0], c[1]) for c in points].index(min([computeDistance(x, y, c[0], c[1]) for c in points]))
 
 for y in range(len(grid)):
 	for x in range(len(grid[y])):
 		if grid[y][x] == -1:
-			minDistance = 10000
-			val = 0
-			for c in coordinates:
-				distance = computeDistance(c[0], c[1], x, y)
-				if distance < minDistance:
-					minDistance = distance
-					closestPoints[val] += 1
-				val += 1
+			closestPoint = determineClosestPoint(x, y, coordinates)
+			closestPoints[closestPoint] += 1
+        else:
+            closestPoints[grid[y][x]] += 1
+            
 
 print(min(closestPoints.values()))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+print(closestPoints.values())
