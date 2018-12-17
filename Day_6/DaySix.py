@@ -56,3 +56,31 @@ for y in range(len(grid)):
 
 print(max([closestPoints[closestPoint]
            for closestPoint in closestPoints if closestPoint not in infinitePoints]))
+
+# refactoring 
+
+# with open('C:/git/AdventOfCode_2018/Day_6/testinput.txt') as f:
+#     coordinates = f.read().splitlines()
+
+
+# coordinates = [coordinate.split(',') for coordinate in coordinates]
+# coordinates = list(
+#     map(lambda x: (list(map(lambda y: int(y) - 1, x))), coordinates))
+# xMax = max(list(zip(*coordinates))[0])
+# yMax = max(list(zip(*coordinates))[1])
+
+# def computeDistances(location, coordinates):
+#     return [computeDistance(location, c) for c in coordinates]
+
+# def computeDistance(p, q):
+#     return abs(p[0] - q[0]) + abs(p[1] - q[1])
+
+# locations = [(x, y) for x in range(xMax) for y in range(yMax)]
+# # store the locations that are equally far from two or more coordinates
+# equiDistant = [(x, y) for x, y in [location for location in locations if computeDistances(location, coordinates).count(min(computeDistances(location, coordinates))) > 1]]
+
+
+
+
+
+
