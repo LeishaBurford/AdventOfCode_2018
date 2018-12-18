@@ -36,9 +36,18 @@ for requirement, instruction in instructions:
     instructionHasRequirement[instruction] = True
 instructionRequirements
 
-
-# In[ ]:
-
+ready = [instruction for instruction in instructionHasRequirement.keys() if not instructionHasRequirement[instruction]].sort()
+result = ''
+while(ready):
+    newInstruction = ready.pop()
+    result += newInstruction
+    # update instruction requirements
+    for instruction in instructionRequirements:
+        if newInstruction in instructionRequirements[instruction]:
+            instructionRequirements[instruction].remove(newInstruction)
+            # if req's list is now empty, update the bool
+            instructionHasRequirement[instruction] = False if not instructionHasRequirement[instruction] else True
+            
 
 
 
