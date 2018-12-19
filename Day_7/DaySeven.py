@@ -1,53 +1,38 @@
-#!/usr/bin/env python
-# coding: utf-8
+#!/usr/bin/python3
 
-# In[138]:
-
-
-with open('C:\git\AdventOfCode_2018\Day_7\input.txt') as f:
+with open('testinput.txt') as f:
     instructions = f.read().splitlines()
 
-
-# In[139]:
-
-
 # part 1
-instructions = [(instruction[1], instruction[7]) for instruction in list(map(lambda x: x.split(' '), instructions))]
-
-
-# In[140]:
-
-
-instructionRequirements = { instruction : [] for instruction in list(set([y for x, y in instructions])) }
-
-
-# In[141]:
-
-
-# for each requirement, add to dictionary
-# sort the dictionary lists
-# find an instruction that is not in the requirements -- maybe maintain this in another dictionary
+instructions = [(instruction[1], instruction[7])
+                for instruction in list(map(lambda x: x.split(' '), instructions))]
+instructionRequirements = {instruction: []
+                           for instruction in list(set([y for x, y in instructions]))}
 
 # setup
-instructionHasRequirement = dict.fromkeys(list(set([x for x, y in instructions])), False)
+instructionHasRequirement = dict.fromkeys(
+    list(set([x for x, y in instructions])), False)
 
 for requirement, instruction in instructions:
     instructionRequirements[instruction].append(requirement)
     instructionHasRequirement[instruction] = True
-instructionRequirements
 
-ready = [instruction for instruction in instructionHasRequirement.keys() if not instructionHasRequirement[instruction]].sort()
+ready = sorted([instruction for instruction in instructionHasRequirement.keys(
+) if not instructionHasRequirement[instruction]], reverse=True)
+
 result = ''
 while(ready):
     newInstruction = ready.pop()
+    instructionHasRequirement.pop(newInstruction)
     result += newInstruction
     # update instruction requirements
     for instruction in instructionRequirements:
         if newInstruction in instructionRequirements[instruction]:
             instructionRequirements[instruction].remove(newInstruction)
             # if req's list is now empty, update the bool
-            instructionHasRequirement[instruction] = False if not instructionHasRequirement[instruction] else True
-            
+            instructionHasRequirement[
+                instruction] = False if not instructionHasRequirement[instruction] else True
+    ready += sorted([instruction for instruction in instructionHasRequirement.keys(
+    ) if not instructionHasRequirement[instruction]], reverse=True)
 
-
-
+print(result)
